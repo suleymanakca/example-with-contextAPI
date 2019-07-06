@@ -1,26 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import NavBar from './components/Navbar';
+import User from './components/User';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+class App extends React.Component {
+  render(){
+    return (
+      <div className="container">
+        <h1 >Merhaba React</h1>
+        <NavBar title = "User App"/>
+        <hr/>
+        <User
+          name="Süleyman Akça"
+          department="Ceng"
+          salary="2000"
+        />
+         <User
+          name="Kamil Çubukçu"
+          department="EEE"
+          salary="3000"
+        />
+      </div>
+      );
+    }
+  }
+
 
 export default App;
