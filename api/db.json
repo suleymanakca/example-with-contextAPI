@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "id": "unique-1",
+      "name": "Süleyman Akça",
+      "department": "Ceng",
+      "salary": "5000"
+    },
+    {
+      "name": "Hasan",
+      "salary": "20000",
+      "department": "Diyanet",
+      "id": "YrYMWcJ"
+    }
+  ]
+}

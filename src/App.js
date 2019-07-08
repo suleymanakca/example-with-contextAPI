@@ -1,26 +1,31 @@
 import React from 'react';
 import './App.css';
-import NavBar from './components/Navbar';
-import User from './components/User';
+import NavBar from './layout/Navbar';
+import Users from './components/Users';
+import AddUser from './components/AddUser';
+import NotFound from './pages/NotFound';
+import Contribute from './pages/Contribute';
+import {BrowserRouter as Router, Route,Switch} from 'react-router-dom';  
+
 
 class App extends React.Component {
+
+
   render(){
     return (
-      <div className="container">
-        <h1 >Merhaba React</h1>
-        <NavBar title = "User App"/>
-        <hr/>
-        <User
-          name="Süleyman Akça"
-          department="Ceng"
-          salary="2000"
-        />
-         <User
-          name="Kamil Çubukçu"
-          department="EEE"
-          salary="3000"
-        />
-      </div>
+      <Router>
+        <div className="container">
+            <NavBar title = "User App"/>
+            <hr/>
+            <Switch>
+              <Route exact path="/" component={Users}/>
+              <Route exact path="/add" component={AddUser}/>
+              <Route exact path="/github" component={Contribute}/>
+              <Route component={NotFound}/>
+            </Switch>
+        </div>
+      </Router>
+      
       );
     }
   }
