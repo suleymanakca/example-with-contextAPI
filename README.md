@@ -1,4 +1,6 @@
 
+Exercise for addition, deletion and update operations.
+
 ## Available Scripts
 
 At first:
