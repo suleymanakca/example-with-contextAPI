@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import UserConsumer from '../context';
 import axios from 'axios';
-
+import {Link} from 'react-router-dom';
 class User extends Component {
    
     static defaultProps = {
@@ -39,7 +39,7 @@ class User extends Component {
     render() {
 
         // Destructing 
-        const {name, department, salary} = this.props;
+        const {id,name, department, salary} = this.props;
         const {isVisible} = this.state;
         return( <UserConsumer>{
             value => {
@@ -50,7 +50,8 @@ class User extends Component {
                     <div  className="card-header d-flex justify-content-between">
                         <h4 
                             onClick={this.onClickEvent}
-                            className="d-inline" >{name}</h4>
+                            className="d-inline" 
+                            style={{cursor: "pointer"}}>{name}</h4>
                         <i 
                             className="fas fa-trash-alt" 
                             style={{cursor: "pointer"}}
@@ -61,8 +62,8 @@ class User extends Component {
                     <div className="card-body">
                         <p className="card-text">Department: {department}</p>
                         <p className="card-text">Salary: {salary}</p>
-                    </div>
-                     : null }
+                        <Link to={`edit/${id}`} className="btn btn-dark btn-block">Update User</Link>
+                    </div>: null }
                    
                 </div>
             </div>

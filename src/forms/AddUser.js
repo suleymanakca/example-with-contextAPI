@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 const Animation = posed.div({
-    visible: {  opacity: 1,
+    visible : {  opacity: 1,
                 applyAtStart: {
                     display: "block"
                 }
@@ -25,6 +25,7 @@ class AddUser extends Component {
             name:"",
             department:"",
             salary:"",
+            error: false
         }
         
         
@@ -35,7 +36,14 @@ class AddUser extends Component {
             isVisible : !this.state.isVisible
         })
     }
+    validateForm = () => {
+        const {name, salary, department} = this.state;
 
+        if ( name === "" || salary === "" || department === "") {
+            return false;
+        }
+        return true;
+    }
     changeInput = (e) =>{
         this.setState({
             [e.target.name] :e.target.value 
@@ -50,13 +58,22 @@ class AddUser extends Component {
             salary,
             department
         }
-        const response = await axios.post("http://localhost:3002/users",newUser);
 
-        dispatch({type :" ADD_USER", payload:response.data});
+        if(!this.validateForm()){
+            this.setState({
+                error: true
+            })
+            return;
+        }
+        const response = await axios.post(`http://localhost:3002/users`,newUser);
+
+        dispatch({type :"ADD_USER", payload:response.data});
+
+        this.props.history.push("/"); // Redirect
     }
    
     render() {
-        const {isVisible, name, salary, department} = this.state;
+        const {isVisible, name, salary, department, error} = this.state;
 
         return<UserConsumer>
             {
@@ -65,11 +82,16 @@ class AddUser extends Component {
                     return (  
                         <div className = "col-md-8 mb-4" >
                         <button onClick ={this.changeVisibility} className="btn btn-dark btn-block mb-2">{isVisible ? "Hide Form": "Show Form"}</button>
-                            <Animation pose = {isVisible ? "visible " : "hidden"}>
+                            <Animation pose = {isVisible ? "visible" : "hidden"}>
                             <div className="card">
                                 <div className="card-header">
                                     <h4>Add User Form</h4>
+                                    </div>
                                     <div className="card-body">
+                                        {error ? 
+                                        <div className="alert-danger">Lütfen Bilgilerinizi Kontrol Edin. 
+                                        </div> : null }
+
                                         <form onSubmit = {this.addUser.bind(this,dispatch)}>
                                             <div className="form-group">
                                                 <label htmlFor="name">Name</label>
@@ -107,7 +129,7 @@ class AddUser extends Component {
                                             <button className="btn btn-danger btn-block" type="submit"> Add User</button>
                                         </form>
                                     </div>
-                                </div>
+                                
                             </div>
                             </Animation>
                         </div>
